@@ -57,6 +57,31 @@ body {
 .sidebar-link[href="contact_developer.php"] i, .nav-link-custom[href="contact_developer.php"] i { color: #f97316; }
 .sidebar-link[href="logout.php"] i, .nav-link-custom[href="logout.php"] i { color: #ef4444; }
 .sidebar-link.active i { filter: saturate(1.2) brightness(1.15); }
+
+/* Sidebar logo: animations (CSS — hakuna React kwenye mradi) */
+@keyframes tra-sidebar-logo-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes tra-sidebar-logo-ring {
+    0%, 100% {
+        box-shadow:
+            0 0 0 0 rgba(232, 197, 71, 0.35),
+            0 0 18px rgba(232, 197, 71, 0.2);
+    }
+    50% {
+        box-shadow:
+            0 0 0 8px rgba(232, 197, 71, 0.08),
+            0 0 32px rgba(232, 197, 71, 0.45);
+    }
+}
+
 /* Sidebar logo: duara kubwa, mpaka wa njano (gold), picha ndani bila stretch */
 .sidebar-logo-section,
 .sidebar-logo {
@@ -84,6 +109,28 @@ body {
     display: block !important;
     box-sizing: border-box;
     flex-shrink: 0;
+    will-change: transform, box-shadow;
+    animation:
+        tra-sidebar-logo-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+        tra-sidebar-logo-ring 3s ease-in-out 0.5s infinite;
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.sidebar-logo-section img:hover,
+.sidebar-logo img:hover {
+    transform: scale(1.06);
+    border-color: #f5d563;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar-logo-section img,
+    .sidebar-logo img {
+        animation: none !important;
+        transition: none !important;
+    }
+    .sidebar-logo-section img:hover,
+    .sidebar-logo img:hover {
+        transform: none;
+    }
 }
 
 .card-sidebar-info,
