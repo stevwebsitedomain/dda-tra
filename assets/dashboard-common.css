@@ -1,0 +1,214 @@
+/**
+ * Shared layout: full-width dark blue header + larger font sizes.
+ * Include after responsive-layout.css on Analytics, TikTok, Airbnb, Booking, Export, Settings, Contact, Dashboard.
+ */
+body {
+    font-size: 16px;
+}
+
+/* Dark blue section: full width (no left/right space) */
+.main-content .tt-page-header {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 16px 12px 12px !important;
+    box-sizing: border-box;
+}
+.tt-page-header h1,
+.tt-page-header .h3 {
+    font-size: 1.75rem !important;
+}
+.tt-page-header .small {
+    font-size: 1rem !important;
+    opacity: 0.95;
+}
+
+/* Header bar title */
+.header-title {
+    font-size: 1.05rem !important;
+}
+
+/* Sidebar: links + logo section + user info */
+.sidebar-link,
+.nav-link-custom {
+    font-size: 15px !important;
+}
+.sidebar-link i,
+.nav-link-custom i {
+    transition: color 0.2s ease;
+}
+.sidebar-link[href="dashboard_home.php"] i, .nav-link-custom[href="dashboard_home.php"] i { color: #60a5fa; }
+.sidebar-link[href="analytics.php"] i, .nav-link-custom[href="analytics.php"] i { color: #34d399; }
+.sidebar-link[href="dashboard.php"] i, .nav-link-custom[href="dashboard.php"] i { color: #c5a059; }
+.sidebar-link[href="airbnb_engine.php"] i, .nav-link-custom[href="airbnb_engine.php"] i,
+.sidebar-link[href="airbnb_realtime.php"] i, .nav-link-custom[href="airbnb_realtime.php"] i,
+.sidebar-link[href="airbnb2_engine.php"] i, .nav-link-custom[href="airbnb2_engine.php"] i,
+.sidebar-link[href="upgraded_airbnb.php"] i, .nav-link-custom[href="upgraded_airbnb.php"] i { color: #fb7185; }
+.sidebar-link[href="booking_engine.php"] i, .nav-link-custom[href="booking_engine.php"] i { color: #f59e0b; }
+.sidebar-link[href="booking_engine.php"] i,
+.nav-link-custom[href="booking_engine.php"] i {
+    background: url('../uploads/bookingicon.svg') center/contain no-repeat;
+    color: transparent !important;
+}
+.sidebar-link[href="download.php"] i, .nav-link-custom[href="download.php"] i { color: #22d3ee; }
+.sidebar-link[href="settings_dashboard.php"] i, .nav-link-custom[href="settings_dashboard.php"] i { color: #a78bfa; }
+.sidebar-link[href="bulk_sms.php"] i, .nav-link-custom[href="bulk_sms.php"] i { color: #10b981; }
+.sidebar-link[href="contact_developer.php"] i, .nav-link-custom[href="contact_developer.php"] i { color: #f97316; }
+.sidebar-link[href="logout.php"] i, .nav-link-custom[href="logout.php"] i { color: #ef4444; }
+.sidebar-link.active i { filter: saturate(1.2) brightness(1.15); }
+/* Sidebar logo: duara kubwa, mpaka wa njano (gold), picha ndani bila stretch */
+.sidebar-logo-section,
+.sidebar-logo {
+    font-size: 0.95rem;
+    padding: 14px 12px 14px !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.22) !important;
+}
+.sidebar-logo-section img,
+.sidebar-logo img {
+    width: 132px !important;
+    height: 132px !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 auto;
+    padding: 12px !important;
+    border: 3px solid #e8c547;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block !important;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.card-sidebar-info,
+.sidebar-info {
+    font-size: 15px !important;
+}
+
+/* Cards */
+.card-header-accent {
+    font-size: 1.1rem !important;
+}
+
+/* Tiles: numbers, labels, icons */
+.tile-stat,
+.tile-val {
+    font-size: 34px !important;
+}
+.tile-label {
+    font-size: 13px !important;
+}
+.tile-box i {
+    font-size: 32px !important;
+}
+
+/* Status chips/badges */
+.status-chip,
+.status-badge {
+    font-size: 13px !important;
+}
+
+.airbnb-header-logo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    width: min(320px, 78%);
+    max-height: 84px;
+    object-fit: contain;
+}
+
+.price-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: text-bottom;
+}
+
+.airbnb-card-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex: 0 0 28px;
+}
+
+.badge-price {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.badge-price::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: url('../uploads/price.jpg') center/contain no-repeat;
+    flex: 0 0 30px;
+}
+
+.airbnb-results-watermark {
+    position: relative;
+    overflow: hidden;
+}
+.airbnb-results-watermark .table-responsive {
+    position: relative;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: url('../uploads/airbnb2.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: min(34%, 320px);
+    background-attachment: fixed;
+}
+.airbnb-results-watermark .table-responsive::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.90);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.booking-results-watermark {
+    position: relative;
+    overflow: hidden;
+}
+.booking-results-watermark .table-responsive {
+    position: relative;
+    min-height: 240px;
+    background-image: url('../uploads/watermark.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: min(42%, 460px);
+    background-attachment: fixed;
+}
+.booking-results-watermark .table-responsive::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.12);
+    pointer-events: none;
+    z-index: 0;
+}
+.airbnb-results-watermark > *,
+.booking-results-watermark > *,
+.airbnb-results-watermark .table-responsive > * {
+    position: relative;
+    z-index: 1;
+}
+.booking-results-watermark .table-responsive > * {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 575px) {
+    .tile-stat,
+    .tile-val {
+        font-size: 28px !important;
+    }
+}

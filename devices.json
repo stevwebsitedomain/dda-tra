@@ -1,0 +1,22 @@
+[
+    {
+        "device_id": "f6587f39c3754b7202759849318b76f8",
+        "ip_address": "41.222.179.238",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/140.0.0.0 Safari\/537.36",
+        "first_seen": "2025-09-26 09:05:55",
+        "last_seen": "2025-09-26 09:06:57",
+        "status": "approved",
+        "approved_by": "Administrator",
+        "approved_at": "2025-09-26 09:06:57"
+    },
+    {
+        "device_id": "454977044a80d1148fb021106680d021",
+        "ip_address": "154.74.191.60",
+        "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/140.0.0.0 Safari\/537.36",
+        "first_seen": "2025-09-29 03:33:29",
+        "last_seen": "2025-09-29 03:33:33",
+        "status": "approved",
+        "approved_by": "Administrator",
+        "approved_at": "2025-09-29 03:33:33"
+    }
+]

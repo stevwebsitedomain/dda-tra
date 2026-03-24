@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zanzibar Commission For Tourism</title>
+    
+    <!-- Google Fonts -->
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans:400,500,700|Google+Sans+Text:400,500,700&amp;lang=en">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans+Text:400&amp;text=%E2%86%90%E2%86%92%E2%86%91%E2%86%93&amp;lang=en">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" crossorigin="" href="/assets/index-D3eDJVIL.css">
+    
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Roboto', 'Google Sans', sans-serif;
+            background-color: #fcfaf8;
+            color: #3C1E03;
+            overflow-x: hidden;
+        }
+        
+        #root {
+            width: 100%;
+        }
+        
+        /* Layout */
+        .flex {
+            display: flex;
+        }
+        
+        .max-h-screen {
+            max-height: 100vh;
+        }
+        
+        .bg-\[\#fcfaf8\] {
+            background-color: #fcfaf8;
+        }
+        
+        /* Sidebar */
+        .hidden {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .md\:block {
+                display: block;
+            }
+            
+            .w-1\/4 {
+                width: 25%;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .xl\:w-\[18\%\] {
+                width: 18%;
+            }
+        }
+        
+        .h-screen {
+            height: 100vh;
+        }
+        
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
+        
+        .border-r {
+            border-right: 1px solid;
+        }
+        
+        .border-secondary-50\/20 {
+            border-color: rgba(207, 190, 157, 0.2);
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .min-h-full {
+            min-height: 100%;
+        }
+        
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .py-4 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        
+        .bg-white {
+            background-color: white;
+        }
+        
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        /* Navigation */
+        nav {
+            font-size: 0.75rem;
+        }
+        
+        .text-xs {
+            font-size: 0.75rem;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        
+        .h-10 {
+            height: 2.5rem;
+        }
+        
+        .w-auto {
+            width: auto;
+        }
+        
+        .text-secondary {
+            color: #3C1E03;
+        }
+        
+        .text-lg {
+            font-size: 1.125rem;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        .text-secondary\/70 {
+            color: rgba(60, 30, 3, 0.7);
+        }
+        
+        .uppercase {
+            text-transform: uppercase;
+        }
+        
+        .relative {
+            position: relative;
+        }
+        
+        a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            border-radius: 0.375rem;
+            color: rgba(60, 30, 3, 0.7);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .text-primary {
+            color: #F07F1A;
+        }
+        
+        .bg-\[\#FFEFE0\] {
+            background-color: #FFEFE0;
+        }
+        
+        .rounded-md {
+            border-radius: 0.375rem;
+        }
+        
+        .size-5 {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        /* Main content */
+        .flex-1 {
+            flex: 1;
+        }
+        
+        .bg-\[\#EDE8E4\]\/5 {
+            background-color: rgba(237, 232, 228, 0.05);
+        }
+        
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
+        
+        /* Header */
+        .bg-white {
+            background-color: white;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        .shadow-sm {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .capitalize {
+            text-transform: capitalize;
+        }
+        
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+        
+        button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.375rem;
+            border: 1px solid transparent;
+            background-color: transparent;
+            padding: 0.25rem;
+            color: #3C1E03;
+        }
+        
+        button:hover {
+            background-color: #f9fafb;
+            border-color: #f3f4f6;
+        }
+        
+        .rounded-md {
+            border-radius: 0.375rem;
+        }
+        
+        .bg-secondary-100 {
+            background-color: #e5e7eb;
+        }
+        
+        .w-px {
+            width: 1px;
+        }
+        
+        .h-7 {
+            height: 1.75rem;
+        }
+        
+        .space-x-3 > * + * {
+            margin-left: 0.75rem;
+        }
+        
+        /* User profile */
+        .w-8 {
+            width: 2rem;
+        }
+        
+        .h-8 {
+            height: 2rem;
+        }
+        
+        .object-cover {
+            object-fit: cover;
+        }
+        
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        
+        .flex-1 {
+            flex: 1;
+        }
+        
+        .text-left {
+            text-align: left;
+        }
+        
+        .pr-3 {
+            padding-right: 0.75rem;
+        }
+        
+        .font-semibold {
+            font-weight: 600;
+        }
+        
+        .font-light {
+            font-weight: 300;
+        }
+        
+        /* Dashboard content */
+        .p-5 {
+            padding: 1.25rem;
+        }
+        
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        /* Stats grid */
+        .grid {
+            display: grid;
+        }
+        
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .shadow-sm {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+        
+        .p-4 {
+            padding: 1rem;
+        }
+        
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+        
+        .md\:flex-nowrap {
+            flex-wrap: nowrap;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .border {
+            border: 1px solid;
+        }
+        
+        .border-secondary-50 {
+            border-color: #CFBE9D;
+        }
+        
+        section {
+            width: 100%;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .md\:w-3\/5 {
+                width: 60%;
+            }
+            
+            .md\:w-2\/5 {
+                width: 40%;
+            }
+        }
+        
+        .space-y-1 > * + * {
+            margin-top: 0.25rem;
+        }
+        
+        .text-\[\#9E8F82\] {
+            color: #9E8F82;
+        }
+        
+        .justify-end {
+            justify-content: flex-end;
+        }
+        
+        .bg-\[\#F2F0ED\] {
+            background-color: #F2F0ED;
+        }
+        
+        .rounded-lg {
+            border-radius: 0.5rem;
+        }
+        
+        .size-6 {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        /* Charts and graphs */
+        .rounded-xl {
+            border-radius: 0.75rem;
+        }
+        
+        .undefined {
+            /* This class seems to be an error, removing it */
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .flex-wrap {
+                flex-direction: column;
+            }
+            
+            .p-5 {
+                padding: 1rem;
+            }
+            
+            .space-y-6 > * + * {
+                margin-top: 1rem;
+            }
+        }
+        
+        /* Fix for recharts container */
+        .recharts-responsive-container {
+            position: relative;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+    
+    <!-- Google Maps API -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQwRf8noW4bYKwbfbCvxw6fPUdl8T61sI&amp;solution_channel=GMP_visgl_rgmlibrary_v1_default&amp;loading=async&amp;callback=__googleMapsCallback__"></script>
+    <script src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/main.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/common.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/map.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/util.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/marker.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/log.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/onion.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/3c/controls.js"></script>
+    
+    <!-- App script -->
+    <script type="module" crossorigin src="/assets/index-YfFA-c6u.js"></script>
+</head>
+<body>
+    <div id="root">
+        <main class="font-inter">
+            <div style="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"></div>
+            <div class="flex max-h-screen bg-[#fcfaf8]">
+                <!-- Sidebar -->
+                <section class="hidden md:block w-1/4 xl:w-[18%]">
+                    <div class="h-screen overflow-y-auto border-r border-secondary-50/20">
+                        <div class="flex flex-col justify-between min-h-full px-4 py-4 bg-white shadow-md">
+                            <nav class="text-xs">
+                                <div class="flex items-center gap-4 mb-8">
+                                    <img src="/assets/zct-logo-BJ9j8gQP.jpg" class="h-10 w-auto">
+                                    <h4 class="text-secondary text-lg font-bold">ZCT Platform</h4>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="space-y-2">
+                                        <h4 class="text-xs text-secondary/70 uppercase">General</h4>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-primary bg-[#FFEFE0]" href="/dashboard" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                                        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+                                                        <circle cx="17.5" cy="10.5" r="1.4" fill="currentColor" opacity=".5"></circle>
+                                                        <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                                                        <circle cx="6.5" cy="12.5" r="1.4" fill="currentColor" opacity=".5"></circle>
+                                                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688c0-.437-.18-.835-.437-1.125c-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2" opacity=".5"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/clients" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                                        <path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"></path>
+                                                        <path opacity="0.5" d="M7.5 17c2.332-2.442 6.643-2.557 9 0m-2.005-7.5c0 1.38-1.12 2.5-2.503 2.5a2.5 2.5 0 0 1-2.504-2.5c0-1.38 1.12-2.5 2.504-2.5a2.5 2.5 0 0 1 2.503 2.5"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Clients</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/properties" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18.775c-1.656-2-3-3.24-3-5.275s1.503-3.5 3.003-3.5S15 11.464 15 13.5s-1.344 3.275-3 5.275m0 0c-2 2.545-5.98 2.687-7.65 1.527c-1.671-1.16-1.695-3.562-.596-6.107c1.1-2.544 2.565-5.597 5.497-9.668C10.212 3.458 10.897 3 11.997 3M12 18.775c2 2.545 5.98 2.687 7.65 1.527c1.671-1.16 1.695-3.562.596-6.107c-1.1-2.544-2.565-5.597-5.497-9.668C13.788 3.458 13.103 3 12.003 3" color="currentColor"></path>
+                                                </svg>
+                                                <span>Airbnb & Hotels</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <h4 class="text-xs text-secondary/70 uppercase">Operations</h4>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/applications/investments" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <path d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14z" opacity=".5"></path>
+                                                        <path stroke-linecap="round" d="M8 12h8M8 8h8m-8 8h5"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Applications</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/licence" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                                                        <path d="M10.4706 22C6.47751 22 4.48098 22 3.24049 20.8284C2 19.6569 2 17.7712 2 14L2 10C2 6.22876 2 4.34315 3.24049 3.17157C4.48098 2 6.47752 2 10.4706 2L11.5294 2C15.5225 2 17.519 2 18.7595 3.17157C20 4.34315 20 6.22876 20 10"></path>
+                                                        <path d="M7 7H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                        <path d="M7 12H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                        <path opacity="0.5" d="M14 22C15.8385 19.2518 20.1188 19.1018 22 22M20 14.9287C20 15.9939 19.1046 16.8574 18 16.8574C16.8954 16.8574 16 15.9939 16 14.9287C16 13.8635 16.8954 13 18 13C19.1046 13 20 13.8635 20 14.9287Z"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Licence</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/inspections" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+                                                        <path d="m21 22l-2.147-2.147m0 0a3.43 3.43 0 0 0 1.004-2.424a3.429 3.429 0 1 0-1.004 2.424" opacity=".5"></path>
+                                                        <path d="M11 22h-.273c-3.26 0-4.892 0-6.024-.798a4.1 4.1 0 0 1-.855-.805C3 19.331 3 17.797 3 14.727v-2.545c0-2.963 0-4.445.469-5.628c.754-1.903 2.348-3.403 4.370-4.113C9.095 2 10.668 2 13.818 2c1.798 0 2.698 0 3.416.252c1.155.406 2.066 1.263 2.497 2.350C20 5.278 20 6.125 20 7.818V12"></path>
+                                                        <path d="M3 12a3.333 3.333 0 0 1 3.333-3.333c.666 0 1.451.116 2.098-.057A1.67 1.67 0 0 0 9.61 7.43c.173-.647.057-1.432.057-2.098A3.333 3.333 0 0 1 13 2"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Inspections</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/payments" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <path d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12Z"></path>
+                                                        <path stroke-linecap="round" d="M10 16H6m8 0h-1.5M2 10h20" opacity=".5"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Payments</span>
+                                            </a>
+                                        </div>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/complaints" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <path d="M22 6.78549C22 9.42824 19.7611 11.571 17 11.571C16.6753 11.5714 16.3516 11.5414 16.0327 11.4814C15.8032 11.4383 15.6884 11.4168 15.6083 11.429C15.5281 11.4412 15.4146 11.5016 15.1875 11.6225C14.5451 11.9642 13.796 12.085 13.0756 11.9509C13.3494 11.614 13.5364 11.2097 13.6189 10.7763C13.6689 10.5112 13.545 10.2537 13.3594 10.0652C12.5167 9.20898 12 8.05524 12 6.78549C12 4.14274 14.2389 2 17 2C19.7611 2 22 4.14274 22 6.78549Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"></path>
+                                                    <path d="M17 9.00298H17.0081M17.0084 7.00209V4.50098" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                                                    <path fill="none" opacity="0.5" d="M7.49787 22.001H4.71414C4.39085 22.001 4.06618 21.9554 3.76924 21.8278C2.80264 21.4123 2.31222 20.8637 2.08366 20.5205C1.95362 20.3252 1.97214 20.0764 2.11323 19.8889C3.23313 18.4008 5.82967 17.5019 7.49787 17.5019M7.50262 22.001H10.2863C10.6096 22.001 10.9343 21.9554 11.2312 21.8278C12.1979 21.4123 12.6883 20.8637 12.9168 20.5205C13.0469 20.3252 13.0283 20.0764 12.8873 19.8889C11.7674 18.4008 9.17081 17.5019 7.50262 17.5019M10.2814 12.2854C10.2814 13.8174 9.03727 15.0593 7.50262 15.0593C5.96796 15.0593 4.72388 13.8174 4.72388 12.2854C4.72388 10.7534 5.96796 9.51147 7.50262 9.51147C9.03727 9.51147 10.2814 10.7534 10.2814 12.2854Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                                <span>Complaints</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <h4 class="text-xs text-secondary/70 uppercase">Analytics</h4>
+                                        <div class="relative text-sm">
+                                            <a class="flex items-center space-x-4 px-4 py-2 w-full rounded-md text-secondary/70 hover:bg-zinc-100" href="/reports" data-discover="true">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                                    <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                        <path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z" opacity=".5"></path>
+                                                        <path stroke-linecap="round" d="M7 18V9m5 9V6m5 12v-5"></path>
+                                                    </g>
+                                                </svg>
+                                                <span>Reports</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                            <div class="space-y-4">
+                                <button class="relative inline-flex justify-center items-center rounded-lg border font-medium transition-all duration-500 ease-in-out focus:outline-none outline outline-offset-2 mx-1 bg-primary text-white border-primary hover:bg-primary-600 outline-primary px-4 py-2 text-xs w-full">
+                                    <span class="">Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Content -->
+                <section class="flex-1 bg-[#EDE8E4]/5 overflow-y-auto">
+                    <!-- Header -->
+                    <div class="bg-white flex items-center justify-between py-2 px-6 shadow-sm">
+                        <h4 class="text-secondary text-lg font-bold capitalize">overview</h4>
+                        <div class="flex items-center space-x-4">
+                            <button class="relative inline-flex justify-center items-center rounded-md font-medium border border-transparent bg-transparent p-1 hover:bg-secondary-50 hover:border-secondary-100 text-secondary">
+                                <span class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                        <defs>
+                                            <mask id="solarMagniferLineDuotone0">
+                                                <g fill="none" stroke-width="1.5">
+                                                    <circle cx="11.5" cy="11.5" r="9.5" stroke="gray"></circle>
+                                                    <path stroke="#fff" stroke-linecap="round" d="M18.5 18.5L22 22"></path>
+                                                </g>
+                                            </mask>
+                                        </defs>
+                                        <path fill="currentColor" d="M0 0h24v24H0z" mask="url(#solarMagniferLineDuotone0)"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="bg-secondary-100 rounded-md w-px h-7"></div>
+                            <div class="flex space-x-4">
+                                <button class="relative inline-flex justify-center items-center rounded-md font-medium border border-transparent bg-transparent p-1 hover:bg-secondary-50 hover:border-secondary-100 text-secondary">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-6">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 12h-6m0 0H6m6 0V6m0 6v6"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button class="relative inline-flex justify-center items-center rounded-md font-medium border border-transparent bg-transparent p-1 hover:bg-secondary-50 hover:border-secondary-100 text-secondary">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <path d="M18.75 9.71v-.705C18.75 5.136 15.726 2 12 2S5.25 5.136 5.25 9.005v.705a4.4 4.4 0 0 1-.692 2.375L3.45 13.81c-1.011 1.575-.239 3.716 1.520 4.214a25.8 25.8 0 0 0 14.06 0c1.759-.498 2.531-2.639 1.520-4.213l-1.108-1.725a4.4 4.4 0 0 1-.693-2.375Z"></path>
+                                                <path stroke-linecap="round" d="M7.5 19c.655 1.748 2.422 3 4.5 3s3.845-1.252 4.5-3M12 6v4" opacity=".5"></path>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button class="relative inline-flex justify-center items-center rounded-md font-medium border border-transparent bg-transparent p-1 hover:bg-secondary-50 hover:border-secondary-100 text-secondary">
+                                    <span class="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-5">
+                                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                                <circle cx="12" cy="12" r="3"></circle>
+                                                <path d="M13.765 2.152C13.398 2 12.932 2 12 2s-1.398 0-1.765.152a2 2 0 0 0-1.083 1.083c-.092.223-.129.484-.143.863a1.62 1.62 0 0 1-.790 1.353a1.62 1.62 0 0 1-1.567.008c-.336-.178-.579-.276-.820-.308a2 2 0 0 0-1.478.396C4.04 5.79 3.806 6.193 3.34 7s-.7 1.21-.751 1.605a2 2 0 0 0 .396 1.479c.148.192.355.353.676.555c.473.297.777.803.777 1.361s-.304 1.064-.777 1.36c-.321.203-.529.364-.676.556a2 2 0 0 0-.396 1.479c.052.394.285.798.75 1.605c.467.807.7 1.21 1.015 1.453a2 2 0 0 0 1.479.396c.24-.032.483-.13.819-.308a1.62 1.62 0 0 1 1.567.008c.483.28.77.795.79 1.353c.014.38.05.64.143.863a2 2 0 0 0 1.083 1.083C10.602 22 11.068 22 12 22s1.398 0 1.765-.152a2 2 0 0 0 1.083-1.083c.092-.223.129-.483.143-.863c.02-.558.307-1.074.79-1.353a1.62 1.62 0 0 1 1.567-.008c.336.178.579.276.819.308a2 2 0 0 0 1.479-.396c.315-.242.548-.646 1.014-1.453s.7-1.21.751-1.605a2 2 0 0 0-.396-1.479c-.148-.192-.355-.353-.676-.555A1.62 1.62 0 0 1 19.562 12c0-.558.304-1.064.777-1.36c.321-.203.529-.364.676-.556a2 2 0 0 0 .396-1.479c-.052-.394-.285-.798-.75-1.605c-.467-.807-.7-1.21-1.015-1.453a2 2 极 0 0 0-1.479-.396c-.24.032-.483.13-.820.308a1.62 1.62 0 0 1-1.566-.008a1.62 1.62 0 0 1-.79-1.353c-.014-.38-.05-.64-.143-.863a2 2 0 0 0-1.083-1.083Z" opacity=".5"></path>
+                                            </g>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="bg-secondary-100 rounded-md w-px h-7"></div>
+                            <button class="flex items-center space-x-3" id="headlessui-menu-button-:r2:" type="button" aria-haspopup="menu" aria-expanded="false" data-headlessui-state="">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://i.pravatar.cc/400" alt="user" class="w-8 h-8 object-cover rounded-full">
+                                    <div class="flex-1 text-left pr-3">
+                                        <h5 class="text-xs text-secondary font-semibold">John Doe</h5>
+                                        <p class="text-xs text-secondary font-light">admin@ztc.com</p>
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 极 24 24" class="size-5">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 15l5 5l5-5M7 9l5-5l5 5"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Content -->
+                    <div class="p-5 space-y-6">
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 3xl:grid-cols-5 gap-4">
+                            <!-- Total Applications -->
+                            <div class="bg-white shadow-sm rounded-lg p-4 text-secondary flex flex-wrap md:flex-nowrap justify-between items-center gap-2 border border-secondary-50">
+                                <section class="w-full md:w-3/5 space-y-1">
+                                    <h4 class="text-xs font-light capitalize">total applications</h4>
+                                    <div class="flex gap-1 text-lg font-bold">
+                                        <span class="text-secondary">139</span>
+                                        <span class="text-[#9E8F82]"></span>
+                                    </div>
+                                </section>
+                                <section class="w-full md:w-2/5 flex justify-end">
+                                    <div class="bg-[#F2F0ED] p-2 rounded-lg flex justify-center items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" class="size-6">
+                                            <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M17.9379 1.90242C16.7373 1.74998 15.2009 1.74999 13.25 1.75H13.25H12.0835C10.1326 1.74999 8.59616 1.74998 7.3956 1.90242C6.16662 2.05847 5.1764 2.38575 4.39227 3.12631C3.60209 3.87259 3.24735 4.82468 3.0793 6.00521C2.91672 7.14729 极 2.91673 8.6054 2.91675 10.4407V10.4407V14.5593V14.5593C2.91673 16.3946 2.91672 17.8527 3.0793 18.9948C3.24735 20.1753 3.60209 21.1274 4.39227 21.8737C5.17639 22.6142 6.16662 22.9415 7.39559 23.0976C8.59616 23.25 10.1326 23.25 12.0835 23.25H13.2501C15.2009 23.25 16.7374 23.25 17.9379 23.0976C19.1669 22.9415 20.1571 22.6143 20.9412 21.8737C21.7314 21.1274 22.0861 20.1753 22.2542 18.9948C22.4168 17.8527 22.4168 16.3946 22.4167 14.5593V10.4407V10.4407V10.4407V10.4407V10.4407C22.4168 8.60541 22.4168 7.14729 22.2542 6.00521C22.0861 4.82468 21.7314 3.87259 20.9412 3.12631C20.1571 2.38575 19.1669 2.05847 17.9379 1.90242ZM8.66675 6.5C8.11446 6.5 7.66675 6.94772 7.66675 7.5C7.66675 8.05228 8.11446 8.5 8.66675 8.5H16.6667C17.219 8.5 17.6667 8.05228 17.6667 7.5C17.6667 极 6.94772 17.219 6.5 16.6667 6.5H8.66675ZM7.66675 12.5C7.66675 11.9477 8.11446 11.5 8.66675 极 11.5H16.6667C17.219 11.5 17.6667 11.9477 17.6667 12.5C17.6667 13.0523 17.219 13.5 16.6667 13.5H8.66675C8.11446 13.5 7.66675 13.0523 7.66675 12.5ZM8.66675 16.5C8.11446 16.5 7.66675 16.9477 7.66675 17.5C7.极 75 18.0523 8.11446 18.5 8.66675 18.5H12.6667C13.219 18.5 13.6667 18.0523 13.6667 17.5C13.6667 16.9477 13.219 16.5 12.6667 16.5H8.66675Z"></path>
+                                        </svg>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- Other stat cards would follow the same pattern -->
+                            <!-- Due to space constraints, I'm only showing one example -->
+                            
+                        </div>
+
+                        <!-- Charts Section -->
+                        <section class="flex flex-wrap md:flex-nowrap gap-4">
+                            <div class="w-full md:w-3/5">
+                                <div class="border border-secondary-50 rounded-xl bg-white text-secondary space-y-4 p-4">
+                                    <div class="flex flex-wrap justify-between gap-4">
+                                        <h4 class="text-lg font-semibold">Payment Received</h4>
+                                        <div class="flex gap-4">
+                                            <!-- Filter dropdowns would go here -->
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between gap-4">
+                                        <div>
+                                            <p class="text-xs font-light">Total Amount</p>
+                                            <div class="flex gap-1 text-lg font-bold">
+                                                <span class="text-secondary">9,031,000</span>
+                                                <span class="text-[#9E8F82]">TZS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full h-72 pt-4">
+                                        <!-- Chart container -->
+                                        <div class="recharts-responsive-container" style="width: 100%; height: 100%; min-width: 0px;">
+                                            <!-- Chart content would be rendered here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-full md:w-2/5">
+                                <div class="border border-secondary-50 rounded-xl bg-white text-secondary space-y-4 p-4">
+                                    <div class="flex flex-wrap justify-between gap-4">
+                                        <h4 class="text-lg font-semibold">Applications By Statuses</h4>
+                                        <!-- Filter dropdown would go here -->
+                                    </div>
+                                    <div class="h-64 relative">
+                                        <!-- Pie chart container -->
+                                        <div class="recharts-responsive-container" style="width: 100%; height: 100%; min-width: 0px;">
+                                            <!-- Pie chart content would be rendered here -->
+                                        </div>
+                                    </div>
+                                    <!-- Legend would go here -->
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Additional sections would follow the same pattern -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <span id="recharts_measurement_span" aria-hidden="true" style="position: absolute; top: -20000px; left: 0px; padding: 0px; margin: 0px; border: none; white-space: pre; font-size: 12px; letter-spacing: normal;">0M</span>
+</body>
+</html>

@@ -1,0 +1,89 @@
+/* Shared layout tuning for desktop/laptop/mobile */
+:root {
+    --app-content-max: 1540px;
+    --app-side-gap-desktop: 30px;
+    --app-side-gap-mobile: 15px;
+}
+
+/* Keep desktop/laptop layouts aligned and not over-stretched */
+@media (min-width: 992px) {
+    .main-content .tt-page-header,
+    .main-content .tiles-wrapper,
+    .main-content .tiles-row,
+    .main-content .card-custom,
+    .main-content .results-wrapper,
+    .main-content .results-cards-wrap,
+    .main-content .content-body,
+    .main-content .contact-section {
+        width: calc(100% - (var(--app-side-gap-desktop) * 2));
+        max-width: var(--app-content-max);
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box;
+    }
+}
+
+/* Improve spacing and text wrapping on tablet/mobile */
+@media (max-width: 991px) {
+    .tt-header,
+    .header-top {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .tt-page-header {
+        text-align: center;
+        padding-left: var(--app-side-gap-mobile) !important;
+        padding-right: var(--app-side-gap-mobile) !important;
+    }
+
+    .tt-page-header h1,
+    .tt-page-header .h3,
+    .tt-page-header .small,
+    .tt-page-header .tt-breadcrumb {
+        max-width: 100%;
+        word-break: break-word;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .main-content .card-custom,
+    .main-content .results-wrapper,
+    .main-content .content-body {
+        width: calc(100% - (var(--app-side-gap-mobile) * 2)) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .tt-header,
+    .header-top {
+        padding-right: var(--app-side-gap-mobile) !important;
+    }
+
+    .tt-page-header h1,
+    .tt-page-header .h3 {
+        font-size: 1.5rem !important;
+    }
+
+    .status-badge,
+    .status-chip {
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    .btn,
+    .form-control,
+    .form-select {
+        max-width: 100%;
+    }
+
+    .tiles-wrapper,
+    .tiles-row {
+        gap: 10px !important;
+    }
+}

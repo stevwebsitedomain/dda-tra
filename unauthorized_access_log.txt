@@ -1,0 +1,42 @@
+[2026-02-18 18:47:24] action=right_click | page=http://localhost/Tra-api/contact_developer.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 18:59:23] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 19:03:49] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 19:03:52] email_sent=no
+[2026-02-18 19:13:53] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 19:13:56] email_sent=yes
+[2026-02-18 19:57:18] action=devtools | page=http://localhost/Tra-api/index.php?error=Please%20Login%20First | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+[2026-02-18 19:57:22] email_sent=yes
+[2026-02-18 20:02:27] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 20:02:31] email_sent=yes
+[2026-02-18 20:06:43] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 20:06:47] email_sent=yes
+[2026-02-18 20:09:52] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-18 20:09:56] email_sent=yes
+[2026-02-19 13:32:01] action=right_click | page=http://localhost/Tra-api/booking_engine.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-19 13:32:01] action=right_click | page=http://localhost/Tra-api/booking_engine.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-19 13:32:05] email_sent=yes
+[2026-02-19 13:32:06] email_sent=yes
+[2026-02-19 16:22:11] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-19 16:22:14] email_sent=yes
+[2026-02-20 03:05:00] action=right_click | page=http://localhost/Tra-api/download.php?view=main | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-20 03:05:04] email_sent=yes
+[2026-02-20 11:39:26] action=right_click | page=http://localhost/Tra-api/airbnb_engine.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-20 11:39:30] email_sent=yes
+[2026-02-20 12:54:30] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-20 12:54:30] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-20 12:54:34] email_sent=yes
+[2026-02-20 12:54:34] email_sent=yes
+[2026-02-20 12:54:36] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-20 12:54:40] email_sent=yes
+[2026-02-21 05:50:40] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-21 05:50:45] email_sent=yes
+[2026-02-21 06:23:41] action=right_click | page=http://localhost/Tra-api/analytics.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-21 06:23:45] email_sent=yes
+[2026-02-23 04:21:32] action=right_click | page=http://localhost/Tra-api/index.php?success=Logged%20out%20successfully | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-23 04:21:38] email_sent=yes
+[2026-02-23 04:21:48] action=right_click | page=http://localhost/Tra-api/dashboard_home.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-02-23 04:21:55] email_sent=yes
+[2026-03-03 05:54:24] action=right_click | page=http://localhost/Tra-api/airbnb_engine.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-03-03 05:54:28] email_sent=yes
+[2026-03-03 07:27:45] action=right_click | page=http://localhost/Tra-api/download.php?view=categorized | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
+[2026-03-03 07:27:49] email_sent=yes

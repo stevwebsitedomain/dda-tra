@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DDA-TRA — Statistics (Live)</title>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+<style>
+:root{
+  --bg:#f7f8fb; --card:#fff; --text:#0f172a; --muted:#6b7280; --line:#eef2f7;
+  --p1:#ff8f66; --p2:#9b8cff; --p3:#ffc55b; --p4:#34c9b6;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif}
+.wrapper{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+@media (max-width: 980px){ .wrapper{grid-template-columns:1fr} }
+
+/* Sidebar (black) */
+.sidebar{background:#000;color:#fff;padding:18px 14px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100dvh}
+.side-brand{display:flex;align-items:center;gap:10px}
+.side-brand .logo{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#d9f,#f96)}
+.side-links{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.side-links a{color:#d1d5db;text-decoration:none;padding:10px 12px;border-radius:10px;display:flex;align-items:center;gap:10px}
+.side-links a:hover,.side-links a.active{background:#111;color:#fff}
+
+/* Main */
+.main{padding:18px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.title{font-weight:800}
+.meta{color:var(--muted);font-size:12px}
+
+/* Top navigation (sticky) */
+.topnav{
+  position:sticky;top:0;z-index:5;background:rgba(255,255,255,.85);
+  backdrop-filter:saturate(160%) blur(8px);
+  border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px;
+}
+.topnav .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap}
+.nav-pills .pill{
+  background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:8px 12px;font-size:13px;color:#111;cursor:pointer;user-select:none;
+}
+.nav-pills .pill.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.range-pills .pill{padding:6px 10px}
+
+/* Layout grid */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;scroll-margin-top:80px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 1px 2px rgba(15,23,42,.03);padding:16px
+}
+.col-2{grid-column:span 2} .col-3{grid-column:span 3} .col-4{grid-column:span 4}
+.col-5{grid-column:span 5} .col-6{grid-column:span 6} .col-7{grid-column:span 7}
+.col-8{grid-column:span 8} .col-12{grid-column:span 12}
+@media (max-width:980px){ .col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8{grid-column:span 12} }
+
+.card h4{margin:0 0 8px 0;font-size:14px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.chart-box{position:relative;height:260px}
+
+/* KPI */
+.kpi{display:flex;align-items:center;gap:12px}
+.kpi-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;font-size:18px}
+.value{font-size:26px;font-weight:800}
+.pill-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted);background:#fff}
+
+/* Simple table list */
+.table-mini{width:100%;border-collapse:collapse}
+.table-mini td{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.badge-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.anchor{scroll-margin-top:90px}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="side-brand">
+      <div class="logo"><i class="fa-solid fa-shield-halved"></i></div>
+      <div><b>DDA-KINONDONI</b><div style="font-size:11px;color:#9ca3af">OSINT / Analytics</div></div>
+    </div>
+    <nav class="side-links">
+      <a href="#overview" class="js-scroll"><i class="fa-solid fa-gauge"></i>Overview</a>
+      <a href="#timeseries" class="js-scroll"><i class="fa-solid fa-chart-line"></i>Time Series</a>
+      <a href="#regions" class="js-scroll"><i class="fa-solid fa-earth-africa"></i>Regions</a>
+      <a href="#engagement" class="js-scroll"><i class="fa-solid fa-heart-pulse"></i>Engagement</a>
+      <a href="#weekly" class="js-scroll"><i class="fa-solid fa-chart-column"></i>Weekly</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="header">
+      <div>
+        <div class="pill-tag" id="hashtag-pill"><i class="fa-solid fa-hashtag"></i> —</div>
+        <h2 class="title">Data Analytics</h2>
+        <div class="meta" id="updated-meta">Last updated —</div>
+      </div>
+      <div class="pill-tag"><i class="fa-regular fa-calendar"></i> <span id="range-pill">Last 7d</span></div>
+    </div>
+
+    <!-- TOP NAVIGATION (Primary & Range) -->
+    <div class="topnav">
+      <div class="row">
+        <div class="nav-pills primary-pills">
+          <span class="pill js-scroll active" data-target="#overview">Overview</span>
+          <span class="pill js-scroll" data-target="#timeseries">Time Series</span>
+          <span class="pill js-scroll" data-target="#regions">Regions</span>
+          <span class="pill js-scroll" data-target="#engagement">Engagement</span>
+          <span class="pill js-scroll" data-target="#weekly">Weekly</span>
+        </div>
+        <div class="nav-pills range-pills">
+          <span class="pill active" data-range="7">7D</span>
+          <span class="pill" data-range="30">30D</span>
+          <span class="pill" data-range="90">90D</span>
+          <span class="pill" data-range="all">All</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="grid" id="grid">
+      <!-- Left KPI (mini bars) -->
+      <div class="card col-3 anchor" id="overview">
+        <h4>Overview</h4>
+        <div class="kpi">
+          <div class="kpi-ico" style="background:linear-gradient(135deg,var(--p2),#b5a8ff)"><i class="fa-solid fa-chart-column"></i></div>
+          <div><div class="value" id="kpi-total">0</div><div class="meta">Total results</div></div>
+        </div>
+        <div class="chart-box" style="height:140px;margin-top:8px"><canvas id="miniCol"></canvas></div>
+        <table class="table-mini" style="margin-top:4px">
+          <tbody id="miniBreakdown"><tr><td class="meta">No breakdown</td><td></td></tr></tbody>
+        </table>
+      </div>
+
+      <!-- Main line (WITH GRADIENT SHADING) -->
+      <div class="card col-7 anchor" id="timeseries">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h4>Time series</h4>
+          <div class="pill-tag"><i class="fa-solid fa-user-plus"></i> User growth</div>
+        </div>
+        <div class="chart-box"><canvas id="lineChart"></canvas></div>
+      </div>
+
+      <!-- Right KPI -->
+      <div class="card col-2">
+        <h4>Trend</h4>
+        <div style="font-size:28px;font-weight:800" id="kpi-trend">0%</div>
+        <div class="meta">Hashtag Trend</div>
+        <div class="kpi" style="margin-top:10px">
+          <div class="kpi-ico" style="background:linear-gradient(135deg,var(--p3),#ffd88d)"><i class="fa-solid fa-bolt"></i></div>
+          <div class="pill-tag" id="trend-chip">—</div>
+        </div>
+      </div>
+
+      <!-- Donut: Regional distribution -->
+      <div class="card col-4 anchor" id="regions">
+        <h4>Regional distribution</h4>
+        <div class="chart-box"><canvas id="donut"></canvas></div>
+      </div>
+
+      <!-- Grouped bars: Engagement -->
+      <div class="card col-5 anchor" id="engagement">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h4>Engagement</h4>
+          <div class="pill-tag"><i class="fa-regular fa-square-plus"></i> Compare</div>
+        </div>
+        <div class="chart-box"><canvas id="groupBar"></canvas></div>
+      </div>
+
+      <!-- Gauge mimic -->
+      <div class="card col-3">
+        <h4>Coverage</h4>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="kpi-ico" style="background:linear-gradient(135deg,var(--p4),#6fe3d6)"><i class="fa-solid fa-globe-africa"></i></div>
+          <div><div class="value" id="kpi-coverage">0%</div><div class="meta">Regional coverage</div></div>
+        </div>
+        <div class="chart-box" style="height:120px;margin-top:6px"><canvas id="miniRing"></canvas></div>
+      </div>
+
+      <!-- Weekly compare -->
+      <div class="card col-6 anchor" id="weekly">
+        <h4>This vs last week</h4>
+        <div class="chart-box"><canvas id="waterfall"></canvas></div>
+      </div>
+
+      <!-- Expense-style list – top regions -->
+      <div class="card col-3">
+        <h4>Top regions</h4>
+        <table class="table-mini" id="topRegions"></table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* ===== Theme helpers ===== */
+const css = getComputedStyle(document.documentElement);
+const C = (v)=> css.getPropertyValue(v).trim();
+const P = { p1:C('--p1'), p2:C('--p2'), p3:C('--p3'), p4:C('--p4') };
+Chart.defaults.font.family = 'Inter';
+Chart.defaults.datasets.bar.borderRadius = 10;
+
+/* ===== Read analytics (REAL data from search page) ===== */
+function getAnalytics(){
+  try{
+    const raw = localStorage.getItem('analyticsData');
+    if(!raw) return null;
+    const data = JSON.parse(raw);
+    return data && typeof data==='object' ? data : null;
+  }catch(e){ return null; }
+}
+
+/* ===== Utilities for time series ===== */
+// Parse "YYYY-MM-DD" to Date without TZ shift
+function parseISODate(d){ const [y,m,day]=d.split('-').map(Number); return new Date(y, m-1, day); }
+// Format back to "YYYY-MM-DD"
+function fmtISO(d){ const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), da=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${da}`; }
+// Fill missing days from min..max using base map (key=YYYY-MM-DD -> value)
+function fillMissingDays(map){
+  const keys = Object.keys(map);
+  if(!keys.length) return {labels:[],values:[]};
+  keys.sort();
+  const start = parseISODate(keys[0]);
+  const end   = parseISODate(keys[keys.length-1]);
+  const outLabels=[], outValues=[];
+  for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){
+    const k = fmtISO(d);
+    outLabels.push(k);
+    outValues.push(Number(map[k] ?? 0));
+  }
+  return {labels:outLabels, values:outValues};
+}
+// Detect cumulative and convert to daily diffs if needed
+function toDaily(labels, values){
+  const nums = values.map(v => Number(v) || 0);
+  // check monotonic non-decreasing
+  let nonDec = true;
+  for(let i=1;i<nums.length;i++){ if(nums[i] < nums[i-1]) { nonDec = false; break; } }
+  if(!nonDec) return nums; // already daily (ups & downs)
+  // if cumulative (or flat), build diffs
+  const diffs = nums.map((v,i)=> i===0 ? v : Math.max(0, v - nums[i-1]));
+  return diffs;
+}
+
+/* ===== DOM binds ===== */
+const elHashtag = document.getElementById('hashtag-pill');
+const elUpdated = document.getElementById('updated-meta');
+const elKPITotal = document.getElementById('kpi-total');
+const elKPITrend = document.getElementById('kpi-trend');
+const elTrendChip = document.getElementById('trend-chip');
+const elKPICoverage = document.getElementById('kpi-coverage');
+const elTopRegions = document.getElementById('topRegions');
+const elMiniBreakdown = document.getElementById('miniBreakdown');
+const elRangePill = document.getElementById('range-pill');
+
+/* ===== Charts refs ===== */
+let chMiniCol, chLine;
+let tsAll = {labels:[], values:[]};   // daily time series ready for slicing
+
+/* ===== Helpers ===== */
+function sliceRange(all, days){
+  if(all.labels.length===0) return all;
+  if(days==='all') return all;
+  const d = parseInt(days,10);
+  const start = Math.max(0, all.labels.length - d);
+  return { labels: all.labels.slice(start), values: all.values.slice(start) };
+}
+function updateLineRange(days){
+  if(!chLine || !tsAll.labels.length) return;
+  const s = sliceRange(tsAll, days);
+  chLine.data.labels = s.labels;
+  chLine.data.datasets[0].data = s.values;
+  // Nice autoscale for small ranges
+  const min = Math.min(...s.values), max = Math.max(...s.values);
+  chLine.options.scales.y.suggestedMin = Math.max(0, min - Math.ceil((max-min)*0.2));
+  chLine.options.scales.y.suggestedMax = Math.max(1, max + Math.ceil((max-min)*0.2));
+  chLine.update();
+  elRangePill.textContent = (days==='all'?'All time':`Last ${days}d`);
+  document.querySelectorAll('.range-pills .pill').forEach(p=>p.classList.toggle('active', p.dataset.range==String(days)));
+}
+function lastNDaysLabels(n){
+  const arr=[];
+  for(let i=n-1;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    arr.push(d.toISOString().slice(0,10));
+  }
+  return arr;
+}
+
+/* ===== Smooth scroll for nav ===== */
+function bindScrollLinks(){
+  document.querySelectorAll('.js-scroll').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const targetSel = el.dataset.target || el.getAttribute('href');
+      const target = document.querySelector(targetSel);
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      document.querySelectorAll('.primary-pills .pill').forEach(p=>p.classList.toggle('active', p===el));
+      document.querySelectorAll('.side-links a').forEach(a=>a.classList.toggle('active', a===el));
+    });
+  });
+}
+
+/* ===== Init ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  bindScrollLinks();
+
+  const d = getAnalytics();
+
+  // Header meta
+  if(!d){
+    elHashtag.innerHTML = '<i class="fa-solid fa-hashtag"></i> —';
+    elUpdated.textContent = 'Awaiting data… (no analyticsData in localStorage yet)';
+  }else{
+    elHashtag.innerHTML = `<i class="fa-solid fa-hashtag"></i> ${d.hashtag || '—'}`;
+    const ts = d.savedAt ? new Date(d.savedAt) : null;
+    elUpdated.textContent = `Last updated ${ ts ? ts.toLocaleString() : '—' }`;
+  }
+
+  // KPIs
+  elKPITotal.textContent = ((d?.totalResults) ?? 0).toLocaleString();
+  elKPICoverage.textContent = `${Math.max(0, Math.min(100, +(d?.regionalCoverage) || 0))}%`;
+  const trend = +(d?.trendValue) || 0;
+  elKPITrend.textContent = `${Math.abs(trend)}%`;
+  elTrendChip.textContent = trend > 0 ? 'Up' : trend < 0 ? 'Down' : 'Flat';
+
+  // Mini breakdown (top 3 regions)
+  elMiniBreakdown.innerHTML = '';
+  const reg = d?.regionalDistribution || {};
+  const regArray = Object.entries(reg);
+  if(regArray.length){
+    const top3 = regArray.slice(0,3);
+    const cols = [P.p2, P.p1, P.p3];
+    top3.forEach(([name,val],i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><span class="badge-dot" style="background:${cols[i%cols.length]}"></span>${name}</td>
+                      <td style="text-align:right">+${val}</td>`;
+      elMiniBreakdown.appendChild(tr);
+    });
+  }else{
+    elMiniBreakdown.innerHTML = '<tr><td class="meta">No breakdown</td><td></td></tr>';
+  }
+
+  // Canvases
+  const ctxMini = document.getElementById('miniCol');
+  const ctxLine = document.getElementById('lineChart');
+  const ctxDonut = document.getElementById('donut');
+  const ctxEng  = document.getElementById('groupBar');
+  const ctxRing = document.getElementById('miniRing');
+  const ctxWF   = document.getElementById('waterfall');
+
+  // 1) Mini column
+  const miniLabels = (d?.miniSeries?.labels) || ['A','B','C','D','E','F'];
+  const miniValues = (d?.miniSeries?.values) || regArray.slice(0,6).map(x=>x[1]);
+  new Chart(ctxMini,{ type:'bar',
+    data:{ labels:miniLabels, datasets:[{ data:miniValues, backgroundColor:[P.p2,P.p1,P.p2,P.p1,P.p2,P.p1] }] },
+    options:{ plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}}, y:{display:false}} }
+  });
+
+  /* ========= 2) TIME SERIES (kivuli) — normalize to DAILY TREND ========= */
+  let rawLabels, rawValues;
+  const tsDaily = d?.timeSeriesDaily;
+  if(tsDaily && Array.isArray(tsDaily.labels) && Array.isArray(tsDaily.values) && tsDaily.labels.length){
+    // Build map date->value and coerce numbers
+    const map = {};
+    for(let i=0;i<tsDaily.labels.length;i++){
+      const k = String(tsDaily.labels[i]);
+      const v = Number(tsDaily.values[i]) || 0;
+      map[k] = (map[k] || 0) + v; // collapse duplicates same day
+    }
+    // Fill missing days between min and max; sort asc
+    const filled = fillMissingDays(map);
+    // If cumulative, convert to daily
+    const dailyVals = toDaily(filled.labels, filled.values);
+    rawLabels = filled.labels;
+    rawValues = dailyVals;
+  }else{
+    // Fallback: last 7 days zeros
+    rawLabels = lastNDaysLabels(7);
+    rawValues = new Array(rawLabels.length).fill(0);
+  }
+
+  // Save normalized series for range slicing
+  tsAll = { labels: rawLabels, values: rawValues };
+
+  // gradient fill
+  const gctx = ctxLine.getContext('2d');
+  const gradient = gctx.createLinearGradient(0,0,0,260);
+  gradient.addColorStop(0,'rgba(255,143,102,.35)'); /* kivuli */
+  gradient.addColorStop(1,'rgba(255,143,102,0)');
+
+  chLine = new Chart(ctxLine,{ type:'line',
+    data:{ labels:[], datasets:[{
+      label:'Posts (daily)', data:[], borderColor:P.p1, backgroundColor:gradient,
+      fill:true, tension:.38, pointRadius:3, pointBackgroundColor:'#fff', pointBorderColor:P.p1, pointBorderWidth:2
+    }] },
+    options:{
+      plugins:{legend:{display:false}},
+      interaction:{mode:'index', intersect:false},
+      scales:{
+        x:{grid:{display:false}},
+        y:{beginAtZero:true, grid:{color:'rgba(2,6,23,.06)'}}
+      }
+    }
+  });
+
+  // Default = 7D, or 'all' if <7 points
+  updateLineRange(rawLabels.length>=7?7:'all');
+
+  // Range buttons
+  document.querySelectorAll('.range-pills .pill').forEach(p=>{
+    p.addEventListener('click', ()=> updateLineRange(p.dataset.range));
+  });
+
+  // 3) Donut = regionalDistribution
+  const regLabels = regArray.map(x=>x[0]);
+  const regVals = regArray.map(x=>x[1]);
+  new Chart(ctxDonut,{ type:'doughnut',
+    data:{ labels:regLabels, datasets:[{ data:regVals, backgroundColor:[P.p1,P.p2,P.p3,P.p4,'#cbd5e1','#f59e0b','#22c55e','#06b6d4'], borderWidth:0, cutout:'68%' }] },
+    options:{ plugins:{legend:{position:'right'}} }
+  });
+
+  // 4) Engagement — only if provided
+  if(d?.engagement){
+    const e = d.engagement;
+    const lab = [], vals=[], cols=[];
+    if(e.likes!=null){ lab.push('Likes'); vals.push(+e.likes); cols.push(P.p1); }
+    if(e.comments!=null){ lab.push('Comments'); vals.push(+e.comments); cols.push(P.p2); }
+    if(e.shares!=null){ lab.push('Shares'); vals.push(+e.shares); cols.push(P.p3); }
+    if(e.saves!=null){ lab.push('Saves'); vals.push(+e.saves); cols.push(P.p4); }
+    if(lab.length){
+      new Chart(ctxEng,{ type:'bar',
+        data:{ labels:lab, datasets:[{ label:'Engagement', data:vals, backgroundColor:cols }] },
+        options:{ plugins:{legend:{position:'top'}}, scales:{x:{grid:{display:false}}, y:{beginAtZero:true}} }
+      });
+    }else{
+      document.getElementById('engagement').style.display = 'none';
+    }
+  }else{
+    document.getElementById('engagement').style.display = 'none';
+  }
+
+  // 5) Ring gauge = coverage
+  const cov = Math.max(0, Math.min(100, +(d?.regionalCoverage) || 0));
+  new Chart(ctxRing,{ type:'doughnut',
+    data:{ labels:['Coverage','Remaining'], datasets:[{ data:[cov, 100-cov], backgroundColor:[P.p4,'#e5e7eb'], borderWidth:0, cutout:'72%' }] },
+    options:{ plugins:{legend:{display:false}} }
+  });
+
+  // 6) Weekly compare — kama ipo
+  if(Array.isArray(d?.trendData) && d.trendData.length>=2){
+    const last = +d.trendData[0], now = +d.trendData[1];
+    new Chart(ctxWF,{ type:'bar',
+      data:{ labels:['Last week','This week'], datasets:[{ label:'Posts', data:[last, now], backgroundColor:[P.p2, P.p1] }]},
+      options:{ plugins:{legend:{position:'top'}}, scales:{x:{grid:{display:false}}, y:{beginAtZero:true}} }
+    });
+  }else{
+    document.getElementById('weekly').style.display = 'none';
+  }
+
+  // Top regions list
+  elTopRegions.innerHTML = (regArray.slice(0,5).map(([n,v],i)=>{
+    const col=[P.p2,P.p1,P.p3,P.p4,'#cbd5e1'][i%5];
+    return `<tr><td><span class="badge-dot" style="background:${col}"></span>${n}</td><td style="text-align:right">${v?.toLocaleString?.() ?? v}</td></tr>`;
+  }).join('')) || '<tr><td class="meta">No regions</td><td></td></tr>';
+});
+</script>
+</body>
+</html>
