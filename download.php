@@ -1577,6 +1577,6 @@ $(function() {
     })();
 });
 </script>
-<script src="js/code_protection.js"></script>
+<script src="js/code_protection.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

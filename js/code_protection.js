@@ -217,6 +217,72 @@
         }, true);
     })();
 
+    (function excelDownloadLoadingGuard() {
+        var sweetAlertUrl = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+
+        function isExcelDownloadLink(link) {
+            if (!link) return false;
+            try {
+                var url = new URL(link.getAttribute('href') || '', window.location.href);
+                var label = (link.textContent || '').trim();
+                if (url.searchParams.get('download_excel') === '1') return true;
+                if (url.searchParams.has('download_row')) return true;
+                if (/\/export\.php$/i.test(url.pathname) && url.searchParams.get('format') === 'excel') return true;
+                return /download\s+excel/i.test(label);
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function loadSweetAlert() {
+            if (window.Swal) return Promise.resolve(window.Swal);
+            return new Promise(function(resolve, reject) {
+                var existing = document.querySelector('script[data-tra-sweetalert]');
+                if (existing) {
+                    existing.addEventListener('load', function() { resolve(window.Swal); }, { once: true });
+                    existing.addEventListener('error', reject, { once: true });
+                    return;
+                }
+                var script = document.createElement('script');
+                script.src = sweetAlertUrl;
+                script.async = true;
+                script.setAttribute('data-tra-sweetalert', '1');
+                script.onload = function() { resolve(window.Swal); };
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        function showLoadingOnly() {
+            loadSweetAlert().then(function(Swal) {
+                if (!Swal) {
+                    alert('Preparing Excel file. Please wait...');
+                    return;
+                }
+                Swal.fire({
+                    title: 'Preparing Excel File',
+                    text: 'Please wait...',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showConfirmButton: false,
+                    didOpen: function() {
+                        Swal.showLoading();
+                    }
+                });
+            }).catch(function() {
+                alert('Preparing Excel file. Please wait...');
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+            if (!isExcelDownloadLink(link)) return;
+            e.preventDefault();
+            e.stopPropagation();
+            showLoadingOnly();
+        }, true);
+    })();
+
     (function inactivityAutoLogout() {
         var path = (window.location.pathname || '').toLowerCase();
         if (/\/(index|login)\.php$/.test(path) || path === '/' || path === '') return;

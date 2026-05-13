@@ -187,7 +187,7 @@ $conn->close();
             </div>
         </div>
     </div>
-<script src="js/code_protection.js"></script>
+<script src="js/code_protection.js?v=<?php echo time(); ?>"></script>
 <script>
 (function () {
     const input = document.getElementById('category-search-input');
