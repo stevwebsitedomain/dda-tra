@@ -1,6 +1,7 @@
 <?php
 // Start session
 session_start();
+require_once __DIR__ . '/config.php';
 
 // Redirect kama tayari ameshaingia
 if (isset($_SESSION['user_id'])) {
@@ -8,26 +9,25 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Database connection details
-$servername = "localhost";
-$username = "root"; 
-$password = ""; 
-$dbname = "tra-infinity-free-data"; 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
+
+    try {
+        $conn = get_db_connection();
+    } catch (Exception $e) {
+        header("Location: index.php?error=Database connection failed. Please try again later.");
+        exit();
+    }
     
     $sql = "SELECT id, name, password, email FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        $conn->close();
+        header("Location: index.php?error=Login service is unavailable. Please try again later.");
+        exit();
+    }
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     $stmt->close();
+    $conn->close();
 }
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -148,6 +148,18 @@ $conn->close();
             box-shadow: none;
         }
 
+        .password-toggle-btn {
+            height: 45px;
+            border-radius: 0;
+            border-color: #ddd;
+            color: #6c757d;
+            background: #fff;
+        }
+
+        .password-toggle-btn:focus {
+            box-shadow: none;
+        }
+
         .btn-login {
             background-color: var(--tra-navy);
             color: white;
@@ -235,7 +247,12 @@ $conn->close();
                     <div class="input-group-prepend">
                         <span class="input-group-text bg-white border-right-0" style="border-radius:0;"><i class="fas fa-lock text-muted"></i></span>
                     </div>
-                    <input type="password" name="password" id="password" class="form-control border-left-0" placeholder="••••••••" required>
+                    <input type="password" name="password" id="password" class="form-control border-left-0 border-right-0" placeholder="••••••••" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary password-toggle-btn" type="button" id="toggle-password" aria-label="Show password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -250,6 +267,23 @@ $conn->close();
         </div>
     </div>
 
+    <script>
+        (function() {
+            var passwordInput = document.getElementById('password');
+            var toggleBtn = document.getElementById('toggle-password');
+            if (!passwordInput || !toggleBtn) return;
+
+            toggleBtn.addEventListener('click', function() {
+                var icon = toggleBtn.querySelector('i');
+                var showing = passwordInput.type === 'text';
+                passwordInput.type = showing ? 'password' : 'text';
+                toggleBtn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+                if (icon) {
+                    icon.className = showing ? 'fas fa-eye' : 'fas fa-eye-slash';
+                }
+            });
+        })();
+    </script>
     <script src="js/code_protection.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
