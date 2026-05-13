@@ -32,11 +32,17 @@ function load_env_file($path) {
 $env = load_env_file(__DIR__ . '/.env');
 $API_BASE_URL = $env['API_BASE_URL'] ?? '';
 
-// Database config (defaults to local XAMPP setup used by index.php)
-$DB_HOST = $env['DB_HOST'] ?? 'localhost';
-$DB_USER = $env['DB_USER'] ?? 'root';
-$DB_PASS = $env['DB_PASS'] ?? '';
-$DB_NAME = $env['DB_NAME'] ?? 'tra-infinity-free-data';
+// Database config: use InfinityFree credentials online, XAMPP credentials locally.
+$isOnlineHost = stripos($_SERVER['HTTP_HOST'] ?? '', 'free.nf') !== false;
+$defaultDbHost = $isOnlineHost ? 'sql207.infinityfree.com' : 'localhost';
+$defaultDbUser = $isOnlineHost ? 'if0_39864294' : 'root';
+$defaultDbPass = $isOnlineHost ? 'ddatra2025' : '';
+$defaultDbName = $isOnlineHost ? 'if0_39864294_dda_tra' : 'tra-infinity-free-data';
+
+$DB_HOST = $env['DB_HOST'] ?? $defaultDbHost;
+$DB_USER = $env['DB_USER'] ?? $defaultDbUser;
+$DB_PASS = $env['DB_PASS'] ?? $defaultDbPass;
+$DB_NAME = $env['DB_NAME'] ?? $defaultDbName;
 
 /**
  * Returns a mysqli connection with safe fallback hosts.

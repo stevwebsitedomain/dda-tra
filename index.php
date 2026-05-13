@@ -12,7 +12,7 @@ $isOnlineHost = stripos($_SERVER['HTTP_HOST'] ?? '', 'free.nf') !== false;
 $servername = $isOnlineHost ? 'sql207.infinityfree.com' : 'localhost';
 $username = $isOnlineHost ? 'if0_39864294' : 'root';
 $dbPassword = $isOnlineHost ? 'ddatra2025' : '';
-$dbname = $isOnlineHost ? 'if0_39864294_instagram_db' : 'tra-infinity-free-data';
+$dbname = $isOnlineHost ? 'if0_39864294_dda_tra' : 'tra-infinity-free-data';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

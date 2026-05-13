@@ -6,7 +6,7 @@ session_start();
 $servername = "sql207.infinityfree.com";
 $username = "if0_39864294"; // Change this to your DB username
 $password = "ddatra2025"; // Add your DB password
-$dbname = "if0_39864294_instagram_db"; // Your database name
+$dbname = "if0_39864294_dda_tra"; // Your database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
