@@ -1,7 +1,6 @@
 <?php
 // Start session
 session_start();
-require_once __DIR__ . '/config.php';
 
 // Redirect kama tayari ameshaingia
 if (isset($_SESSION['user_id'])) {
@@ -9,17 +8,24 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
+$isOnlineHost = stripos($_SERVER['HTTP_HOST'] ?? '', 'free.nf') !== false;
+$servername = $isOnlineHost ? 'sql207.infinityfree.com' : 'localhost';
+$username = $isOnlineHost ? 'if0_39864294' : 'root';
+$dbPassword = $isOnlineHost ? 'ddatra2025' : '';
+$dbname = $isOnlineHost ? 'if0_39864294_instagram_db' : 'tra-infinity-free-data';
+
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    try {
-        $conn = get_db_connection();
-    } catch (Exception $e) {
+    mysqli_report(MYSQLI_REPORT_OFF);
+    $conn = @new mysqli($servername, $username, $dbPassword, $dbname);
+    if ($conn->connect_error) {
         header("Location: index.php?error=Database connection failed. Please try again later.");
         exit();
     }
+    $conn->set_charset('utf8mb4');
     
     $sql = "SELECT id, name, password, email FROM users WHERE email = ?";
     $stmt = $conn->prepare($sql);

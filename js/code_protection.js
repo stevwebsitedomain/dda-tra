@@ -217,6 +217,67 @@
         }, true);
     })();
 
+    (function inactivityAutoLogout() {
+        var path = (window.location.pathname || '').toLowerCase();
+        if (/\/(index|login)\.php$/.test(path) || path === '/' || path === '') return;
+
+        var timeoutMs = 5 * 60 * 1000;
+        var checkEveryMs = 15 * 1000;
+        var lastActivity = Date.now();
+        var logoutStarted = false;
+
+        function markActivity() {
+            lastActivity = Date.now();
+        }
+
+        function isVisible(el) {
+            if (!el) return false;
+            var style = window.getComputedStyle(el);
+            var rect = el.getBoundingClientRect();
+            return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+        }
+
+        function isSearchOrLoadingActive() {
+            try {
+                if (window.Swal && typeof window.Swal.isLoading === 'function' && window.Swal.isLoading()) {
+                    return true;
+                }
+            } catch (e) {}
+
+            var activeSelectors = [
+                '#search-overlay',
+                '#save-category-overlay',
+                '.search-overlay',
+                '.swal2-container.swal2-shown'
+            ];
+            for (var i = 0; i < activeSelectors.length; i++) {
+                var nodes = document.querySelectorAll(activeSelectors[i]);
+                for (var j = 0; j < nodes.length; j++) {
+                    if (isVisible(nodes[j])) return true;
+                }
+            }
+            return false;
+        }
+
+        function checkIdle() {
+            if (logoutStarted) return;
+            if (isSearchOrLoadingActive()) {
+                markActivity();
+                return;
+            }
+            if (Date.now() - lastActivity >= timeoutMs) {
+                logoutStarted = true;
+                window.location.href = 'logout.php?reason=inactive';
+            }
+        }
+
+        ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(function(evt) {
+            document.addEventListener(evt, markActivity, { passive: true });
+        });
+
+        setInterval(checkIdle, checkEveryMs);
+    })();
+
     var devToolsOpen = false;
     var threshold = 160;
     setInterval(function() {
