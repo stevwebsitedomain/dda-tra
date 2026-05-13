@@ -29,7 +29,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
 
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
             --tra-navy: #0b1e3b;
             --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
             --accent-gold: #c5a059;
@@ -398,7 +398,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
             .sidebar-wrapper {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
-                width: 280px;
+                width: 260px;
             }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
@@ -531,7 +531,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
         <div class="card-header-accent"><i class="fas fa-magnifying-glass mr-2"></i> Airbnb Search</div>
         <div class="card-body">
             <p class="small text-muted mb-3">
-                Andika location, listing id, au Airbnb room URL (mfano: <strong>dar es salaam</strong>, <strong>41684233</strong>, <strong>https://www.airbnb.com/rooms/1066230</strong>) kisha bonyeza Search.
+                Enter a location, listing ID, or Airbnb room URL (example: <strong>dar es salaam</strong>, <strong>41684233</strong>, <strong>https://www.airbnb.com/rooms/1066230</strong>), then click Search.
             </p>
             <div class="input-group">
                 <input type="text" id="airbnb-query" class="form-control form-control-lg" placeholder="e.g. dar es salaam, 41684233, https://www.airbnb.com/rooms/1066230">
@@ -1128,7 +1128,7 @@ async function showAirbnbRecordsCardDetails() {
         }
         const rows = Array.isArray(data.records) ? data.records : [];
         if (!rows.length) {
-            Swal.fire({ icon: 'info', title: 'No saved records', text: 'Hakuna records za Airbnb zilizohifadhiwa bado.' });
+            Swal.fire({ icon: 'info', title: 'No saved records', text: 'No Airbnb records have been saved yet.' });
             return;
         }
         const htmlRows = rows.map((r) => `

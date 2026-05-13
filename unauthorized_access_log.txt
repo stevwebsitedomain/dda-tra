@@ -40,3 +40,5 @@
 [2026-03-03 05:54:28] email_sent=yes
 [2026-03-03 07:27:45] action=right_click | page=http://localhost/Tra-api/download.php?view=categorized | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.
 [2026-03-03 07:27:49] email_sent=yes
+[2026-05-13 02:29:36] action=devtools | page=http://localhost/Tra-api/index.php | IP=::1 | location=Unknown | UA=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cursor/3.3.30 Chrome/142.0.7444.265 Ele
+[2026-05-13 02:29:42] email_sent=no

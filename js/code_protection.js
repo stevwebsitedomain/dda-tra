@@ -98,6 +98,125 @@
         setInterval(check, 30000);
     })();
 
+    (function exportRecordsGuard() {
+        var sweetAlertUrl = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+
+        function isExportRecordsLink(link) {
+            if (!link || !link.classList) return false;
+            try {
+                var url = new URL(link.getAttribute('href') || '', window.location.href);
+                if (!/\/download\.php$/i.test(url.pathname)) return false;
+                if (link.classList.contains('sidebar-link') && /Export\s+Records/i.test(link.textContent || '')) {
+                    return url.search === '';
+                }
+                if (link.classList.contains('tile-box')) {
+                    var view = url.searchParams.get('view');
+                    return view === 'main' || view === 'categorized' || view === 'categories';
+                }
+                return false;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function loadSweetAlert() {
+            if (window.Swal) return Promise.resolve(window.Swal);
+            return new Promise(function(resolve, reject) {
+                var existing = document.querySelector('script[data-tra-sweetalert]');
+                if (existing) {
+                    existing.addEventListener('load', function() { resolve(window.Swal); }, { once: true });
+                    existing.addEventListener('error', reject, { once: true });
+                    return;
+                }
+                var script = document.createElement('script');
+                script.src = sweetAlertUrl;
+                script.async = true;
+                script.setAttribute('data-tra-sweetalert', '1');
+                script.onload = function() { resolve(window.Swal); };
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        function unlockExport(password) {
+            return fetch('export_auth.php', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password || '' })
+            }).then(function(response) {
+                return response.json().catch(function() { return {}; }).then(function(data) {
+                    if (!response.ok || !data.success) {
+                        throw new Error(data.message || 'Incorrect password.');
+                    }
+                    return data;
+                });
+            });
+        }
+
+        function fallbackPasswordPrompt(targetUrl) {
+            var password = window.prompt('Enter the password to open Export Records:');
+            if (password === null) return;
+            unlockExport(password).then(function() {
+                window.location.href = targetUrl;
+            }).catch(function(err) {
+                window.alert(err.message || 'Incorrect password.');
+            });
+        }
+
+        function requestPassword(targetUrl) {
+            loadSweetAlert().then(function(Swal) {
+                if (!Swal) {
+                    fallbackPasswordPrompt(targetUrl);
+                    return;
+                }
+                Swal.fire({
+                    title: 'Export Records Password',
+                    text: 'Enter the password to open Export Records.',
+                    input: 'password',
+                    inputPlaceholder: 'Enter password',
+                    inputAttributes: {
+                        autocapitalize: 'off',
+                        autocomplete: 'current-password'
+                    },
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Open',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#0b1e3b',
+                    showLoaderOnConfirm: true,
+                    preConfirm: function(password) {
+                        if (!password) {
+                            Swal.showValidationMessage('Please enter the password.');
+                            return false;
+                        }
+                        return unlockExport(password).catch(function(err) {
+                            Swal.showValidationMessage(err.message || 'Incorrect password.');
+                            return false;
+                        });
+                    },
+                    allowOutsideClick: function() {
+                        return !Swal.isLoading();
+                    }
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        window.location.href = targetUrl;
+                    }
+                });
+            }).catch(function() {
+                fallbackPasswordPrompt(targetUrl);
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+            if (!isExportRecordsLink(link)) return;
+            e.preventDefault();
+            e.stopPropagation();
+            requestPassword(link.href);
+        }, true);
+    })();
+
     var devToolsOpen = false;
     var threshold = 160;
     setInterval(function() {

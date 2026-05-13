@@ -5,6 +5,11 @@ ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_report
 // API_BASE_URL kutoka config (kwa ajili ya server status)
 require_once __DIR__ . '/config.php'; 
 
+if (empty($_SESSION['export_records_unlocked'])) {
+    header("Location: dashboard_home.php?export_locked=1");
+    exit();
+}
+
 /* ---------- CSRF ---------- */
 if (empty($_SESSION['csrf'])) { $_SESSION['csrf'] = bin2hex(random_bytes(16)); }
 $CSRF = $_SESSION['csrf'];
@@ -343,8 +348,9 @@ $total_main_all_sources = $total_cat_data + $total_uncategorized;
 $cat_res = $conn->query("SELECT id, category_name FROM data_categories ORDER BY category_name");
 $categories = []; while($c = $cat_res->fetch_assoc()) $categories[] = $c;
 
+$show_main_records_table = false;
 $main_records_rows = [];
-if ($view_mode === 'main') {
+if ($show_main_records_table && $view_mode === 'main') {
     // Load only what main table needs; avoid heavy fetches for other tabs.
     $categorizedSql = "
         SELECT cd.id, cd.username, cd.phone, cd.bio, cd.source, cd.created_at, c.category_name,
@@ -486,7 +492,7 @@ if ($selected_category_id > 0) {
             --tra-gold: #c5a059;
             --wh-blue: #0e2245;
             --wh-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
         }
 
         body {
@@ -697,14 +703,14 @@ if ($selected_category_id > 0) {
             padding-right: 6px !important;
         }
         .th-actions-col {
-            width: 280px;
-            min-width: 280px;
-            max-width: 280px;
+            width: 260px;
+            min-width: 260px;
+            max-width: 260px;
         }
         .td-actions-col {
-            width: 280px;
-            min-width: 280px;
-            max-width: 280px;
+            width: 260px;
+            min-width: 260px;
+            max-width: 260px;
             white-space: nowrap;
         }
         .actions-inline {
@@ -820,7 +826,7 @@ if ($selected_category_id > 0) {
             .sidebar-wrapper {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
-                width: 280px;
+                width: 260px;
             }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
@@ -994,9 +1000,9 @@ if ($selected_category_id > 0) {
             </div>
         <?php endif; ?>
 
-        <div class="row records-layout-row <?php echo $view_mode === 'categorized' ? 'tight-layout' : ''; ?>" id="records-layout-row">
-            <!-- Left Panel: Create New Category / Import (col-md-3) -->
-            <div class="col-12 col-md-4 col-lg-4" id="records-left-column">
+        <div class="row records-layout-row <?php echo $view_mode === 'categorized' ? 'tight-layout' : ''; ?> <?php echo $view_mode === 'main' ? 'justify-content-center' : ''; ?>" id="records-layout-row">
+            <!-- Left Panel: Create New Category / Import -->
+            <div class="<?php echo $view_mode === 'main' ? 'col-12 col-md-8 col-lg-5' : 'col-12 col-md-4 col-lg-4'; ?>" id="records-left-column">
                 <div class="card card-custom fade-in">
                     <div class="card-header card-header-accent"><i class="fas fa-plus-circle mr-2"></i> Create New Category</div>
                     <div class="card-body">
@@ -1012,6 +1018,7 @@ if ($selected_category_id > 0) {
                     </div>
                 </div>
 
+                <?php if($view_mode !== 'main'): ?>
                 <div class="card card-custom fade-in" style="animation-delay: 0.1s;">
                     <div class="card-header card-header-accent"><i class="fas fa-file-import mr-2"></i> Import Data</div>
                     <div class="card-body">
@@ -1034,9 +1041,11 @@ if ($selected_category_id > 0) {
                         </form>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
 
-            <!-- Right Panel: Main Records Table (col-md-9) -->
+            <?php if($view_mode !== 'main'): ?>
+            <!-- Right Panel: Category Records -->
             <div class="col-12 col-md-8 col-lg-8" id="records-right-column">
                 <div class="card card-custom fade-in" id="main-records-card" style="animation-delay: 0.2s;">
                     <div class="card-header card-header-accent d-flex justify-content-between align-items-center flex-wrap">
@@ -1302,6 +1311,7 @@ if ($selected_category_id > 0) {
                 </div>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </main>
@@ -1317,7 +1327,7 @@ if ($selected_category_id > 0) {
             <div class="modal-body">
                 <label class="small font-weight-bold mb-2">New Category Name</label>
                 <input type="text" class="form-control" id="edit-category-input" placeholder="Type new category name">
-                <div class="small text-muted mt-2">Badilisha jina la category bila kupoteza records zake.</div>
+                <div class="small text-muted mt-2">Change the category name without losing its records.</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light border" data-dismiss="modal">Cancel</button>

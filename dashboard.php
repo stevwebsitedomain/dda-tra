@@ -42,7 +42,7 @@ $device_approved = $_SESSION['device_approved'] ?? false;
 
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
             --tra-navy: #0b1e3b;
             --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
             --accent-gold: #c5a059;
@@ -489,7 +489,7 @@ $device_approved = $_SESSION['device_approved'] ?? false;
             .sidebar-wrapper {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease, opacity 0.3s ease;
-                width: 280px;
+                width: 260px;
             }
             .sidebar-wrapper.sidebar-open {
                 transform: translateX(0);

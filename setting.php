@@ -403,7 +403,7 @@ $data_retention = isset($_SESSION['settings']['data_retention']) ? $_SESSION['se
                 <div class="mb-3">
                     <label for="passwordChange" class="form-label">Badilisha Nenosiri</label>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="passwordChange" placeholder="Weka nenosiri jipya">
+                        <input type="password" class="form-control" id="passwordChange" placeholder="Enter a new password">
                         <button class="btn btn-outline-secondary" type="button" id="showPassword">
                             <i class="fas fa-eye"></i>
                         </button>

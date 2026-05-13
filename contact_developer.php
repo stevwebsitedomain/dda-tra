@@ -28,7 +28,7 @@ $has_banner = file_exists(__DIR__ . '/' . $banner_img);
     <link href="assets/responsive-layout.css" rel="stylesheet">
 <link href="assets/dashboard-common.css" rel="stylesheet">
     <style>
-        :root { --tra-navy: #0b1e3b; --sidebar-width: 300px; --accent-gold: #c5a059; --light-bg: #f4f7fa; --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%); }
+        :root { --tra-navy: #0b1e3b; --sidebar-width: 260px; --accent-gold: #c5a059; --light-bg: #f4f7fa; --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%); }
         body { font-family: 'Open Sans', sans-serif; background: var(--light-bg); margin: 0; overflow-x: hidden; }
         .sidebar-wrapper { width: var(--sidebar-width); background: var(--tra-navy); height: 100vh; position: fixed; left: 0; top: 0; z-index: 1000; color: #fff; overflow-y: auto; scrollbar-width: none; display: flex; flex-direction: column; }
         .sidebar-wrapper::-webkit-scrollbar { display: none; }
@@ -111,7 +111,7 @@ $has_banner = file_exists(__DIR__ . '/' . $banner_img);
         .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 999; }
         @media (max-width: 991px) {
             .mobile-menu-btn { display: flex; }
-            .sidebar-wrapper { transform: translateX(-100%); transition: transform .3s ease; width: 280px; }
+            .sidebar-wrapper { transform: translateX(-100%); transition: transform .3s ease; width: 260px; }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .contact-section { flex-direction: column; margin: 15px; }

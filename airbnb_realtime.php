@@ -20,7 +20,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
     <link href="assets/responsive-layout.css" rel="stylesheet">
     <link href="assets/dashboard-common.css" rel="stylesheet">
     <style>
-        :root { --sidebar-width:300px; --tra-navy:#0b1e3b; --accent:#9333ea; --bg:#f5f3ff; --head:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; }
+        :root { --sidebar-width:260px; --tra-navy:#0b1e3b; --accent:#9333ea; --bg:#f5f3ff; --head:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; }
         body { margin:0; font-family:'Open Sans',sans-serif; background:var(--bg); }
         .sidebar-wrapper { width:var(--sidebar-width); background:var(--tra-navy); height:100vh; position:fixed; left:0; top:0; z-index:1000; color:#fff; overflow-y:auto; scrollbar-width:none; }
         .sidebar-wrapper::-webkit-scrollbar { display:none; }

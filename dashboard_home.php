@@ -83,7 +83,7 @@ $conn->close();
 <link href="assets/dashboard-common.css" rel="stylesheet">
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
             --tra-navy: #0b1e3b;
             --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
             --accent-gold: #c5a059;
@@ -260,7 +260,7 @@ $conn->close();
 
         @media (max-width: 991px) {
             .mobile-menu-btn { display: flex; }
-            .sidebar-wrapper { transform: translateX(-100%); transition: transform .3s ease; width: 280px; }
+            .sidebar-wrapper { transform: translateX(-100%); transition: transform .3s ease; width: 260px; }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .tt-header { padding: 10px 15px 10px 60px; flex-wrap: wrap; }

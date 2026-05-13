@@ -29,7 +29,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
 
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
             --tra-navy: #0b1e3b;
             --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
             --accent-gold: #c5a059;
@@ -433,7 +433,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
             .sidebar-wrapper {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
-                width: 280px;
+                width: 260px;
             }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
@@ -538,7 +538,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
         <div class="card-header-accent"><i class="fas fa-magnifying-glass mr-2"></i> Booking Search</div>
         <div class="card-body">
             <p class="small text-muted mb-3">
-                Chagua <strong>Search by</strong>, andika location au neno (mfano: <strong>man</strong>, <strong>Tanzania</strong>) kisha bonyeza Search.
+                Choose <strong>Search by</strong>, enter a location or keyword (example: <strong>man</strong>, <strong>Tanzania</strong>), then click Search.
             </p>
             <div class="booking-search-row">
                 <div class="booking-search-by-wrap">
@@ -733,11 +733,11 @@ function renderTable(results) {
         const mapLinkHtmlAction = '<i class="fas fa-map-marked-alt"></i> Map &amp; Directions';
         const locationCell = hasLatLng
             ? `<span class="table-badge badge-location">${escapeHtml(item.location || 'N/A')}</span>
-               <a class="btn btn-sm btn-outline-primary ml-1 mt-1 js-map-directions" href="${mapUrl}" data-destination="${escapeHtml(dest)}" data-restore-html="${escapeHtml(mapLinkHtml)}" target="_blank" rel="noopener" title="Fungua ramani na maelekezo (kutoka mahali ulipo)">${mapLinkHtml}</a>`
+               <a class="btn btn-sm btn-outline-primary ml-1 mt-1 js-map-directions" href="${mapUrl}" data-destination="${escapeHtml(dest)}" data-restore-html="${escapeHtml(mapLinkHtml)}" target="_blank" rel="noopener" title="Open map directions from your current location">${mapLinkHtml}</a>`
             : `<span class="table-badge badge-location">${escapeHtml(item.location || 'N/A')}</span>`;
         const actionParts = [];
         if (actionUrl) actionParts.push(`<a class="btn btn-sm btn-outline-info" href="${String(actionUrl).replace(/"/g, '&quot;')}" target="_blank" rel="noopener">Open</a>`);
-        if (dest) actionParts.push(`<a class="btn btn-sm btn-outline-primary js-map-directions" href="${mapUrl}" data-destination="${escapeHtml(dest)}" data-restore-html="${escapeHtml(mapLinkHtmlAction)}" target="_blank" rel="noopener" title="Fungua ramani na maelekezo (kutoka mahali ulipo)">${mapLinkHtmlAction}</a>`);
+        if (dest) actionParts.push(`<a class="btn btn-sm btn-outline-primary js-map-directions" href="${mapUrl}" data-destination="${escapeHtml(dest)}" data-restore-html="${escapeHtml(mapLinkHtmlAction)}" target="_blank" rel="noopener" title="Open map directions from your current location">${mapLinkHtmlAction}</a>`);
         const actionCell = actionParts.length ? actionParts.join(' ') : '<span class="text-muted small">—</span>';
         const row = `
             <tr>

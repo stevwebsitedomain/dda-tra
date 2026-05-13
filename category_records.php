@@ -240,7 +240,7 @@ $conn->close();
         const mainEl = cell.querySelector('.geo-location-main');
         const subEl = cell.querySelector('.location-loading');
         if (!lat || !lng) {
-            if (subEl) subEl.textContent = 'Hakuna Lat/Lng.';
+            if (subEl) subEl.textContent = 'No Lat/Lng.';
             return;
         }
         try {

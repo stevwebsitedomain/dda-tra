@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tokenOk = isset($_POST['csrf']) && hash_equals($csrf, (string)$_POST['csrf']);
     if (!$tokenOk) {
         $statusType = 'danger';
-        $statusText = 'Session invalid. Tafadhali refresh page ujaribu tena.';
+        $statusText = 'Session invalid. Please refresh the page and try again.';
     } else {
         $numbersInput = trim((string)($_POST['phone_numbers'] ?? ''));
         $message = trim((string)($_POST['message'] ?? ''));
@@ -63,16 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$apiKey) {
             $statusType = 'warning';
-            $statusText = 'RapidAPI key haijawekwa. Weka RAPIDAPI_KEY kwenye .env.';
+            $statusText = 'RapidAPI key is missing. Add RAPIDAPI_KEY to the .env file.';
         } elseif (!$cleanNumbers) {
             $statusType = 'warning';
-            $statusText = 'Weka namba halali za Tanzania (mf: 2557XXXXXXXX).';
+            $statusText = 'Enter valid Tanzania phone numbers (example: 2557XXXXXXXX).';
         } elseif ($invalidNumbers) {
             $statusType = 'warning';
             $statusText = 'Kuna namba zisizo sahihi za Tanzania: ' . implode(', ', array_slice($invalidNumbers, 0, 6));
         } elseif ($message === '') {
             $statusType = 'warning';
-            $statusText = 'Andika message kabla ya kutuma.';
+            $statusText = 'Enter a message before sending.';
         } else {
             $payload = [
                 // EasySendSMS send payload (multiple aliases for RapidAPI compatibility)
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $statusText = 'SMS failed: API imerudisha HTTP ' . $httpCode . ' lakini body ni tupu. Inawezekana endpoint/subscription/params si sahihi.';
                 } elseif ($responseText === '1002' || $apiErrorCode === '1002') {
                     $statusType = 'danger';
-                    $statusText = 'SMS failed [1002]: Invalid username/password. Weka EASYSENDSMS_USERNAME na EASYSENDSMS_PASSWORD kwenye .env.';
+                    $statusText = 'SMS failed [1002]: Invalid username/password. Add EASYSENDSMS_USERNAME and EASYSENDSMS_PASSWORD to the .env file.';
                 } elseif ($httpCode >= 200 && $httpCode < 300 && !$jsonLooksFailed && ($jsonLooksSuccess || $textLooksSuccess)) {
                     $statusType = $hasErrInIds ? 'warning' : 'success';
                     $statusText = $hasErrInIds
@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="assets/responsive-layout.css" rel="stylesheet">
     <link href="assets/dashboard-common.css" rel="stylesheet">
     <style>
-        :root { --sidebar-width:280px; --tra-navy:#0b1e3b; --tra-blue-gradient:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; --light-bg:#f4f7fa; }
+        :root { --sidebar-width:260px; --tra-navy:#0b1e3b; --tra-blue-gradient:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; --light-bg:#f4f7fa; }
         body { margin:0; font-family:'Open Sans',sans-serif; background:var(--light-bg); }
         .sidebar-wrapper { width:var(--sidebar-width); background:var(--tra-navy); height:100vh; position:fixed; left:0; top:0; z-index:1000; color:#fff; overflow-y:auto; scrollbar-width:none; }
         .sidebar-wrapper::-webkit-scrollbar { display:none; }
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .mobile-menu-btn{display:none}.sidebar-overlay{display:none}
         @media (max-width:991px){ .mobile-menu-btn{display:flex;position:fixed;top:15px;left:15px;z-index:1001;width:44px;height:44px;border-radius:8px;background:var(--tra-navy);color:#fff;border:none;align-items:center;justify-content:center}
         .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999}
-        .sidebar-wrapper{transform:translateX(-100%);transition:transform .3s ease;width:280px}.sidebar-wrapper.sidebar-open{transform:translateX(0)}
+        .sidebar-wrapper{transform:translateX(-100%);transition:transform .3s ease;width:260px}.sidebar-wrapper.sidebar-open{transform:translateX(0)}
         .main-content{margin-left:0}.tt-header{padding:10px 15px 10px 60px}.card-custom{margin:15px} }
     </style>
 </head>
@@ -304,7 +304,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold">Message</label>
-                    <textarea name="message" class="form-control" rows="5" maxlength="1000" placeholder="Andika ujumbe hapa..."><?php echo htmlspecialchars((string)($_POST['message'] ?? '')); ?></textarea>
+                    <textarea name="message" class="form-control" rows="5" maxlength="1000" placeholder="Type your message here..."><?php echo htmlspecialchars((string)($_POST['message'] ?? '')); ?></textarea>
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold">Sender ID (optional)</label>

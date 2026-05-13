@@ -83,7 +83,7 @@ $lastSavedAt = $_SESSION['settings_saved_at'] ?? '';
     <link href="assets/responsive-layout.css" rel="stylesheet">
 <link href="assets/dashboard-common.css" rel="stylesheet">
     <style>
-        :root { --sidebar-width:300px; --tra-navy:#0b1e3b; --tra-blue-gradient:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; --light-bg:#f4f7fa; }
+        :root { --sidebar-width:260px; --tra-navy:#0b1e3b; --tra-blue-gradient:linear-gradient(135deg,#0e2245 0%,#1c3d7a 100%); --accent-gold:#c5a059; --light-bg:#f4f7fa; }
         body { font-family:'Open Sans',sans-serif; background:var(--light-bg); margin:0; overflow-x:hidden; -webkit-text-size-adjust:100%; }
         .sidebar-wrapper { width:var(--sidebar-width); background:var(--tra-navy); height:100vh; position:fixed; left:0; top:0; z-index:1000; color:#fff; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none; }
         .sidebar-wrapper::-webkit-scrollbar { display:none; }
@@ -157,7 +157,7 @@ $lastSavedAt = $_SESSION['settings_saved_at'] ?? '';
         .mobile-menu-btn{display:none}.sidebar-overlay{display:none}
         @media (max-width:991px){ .mobile-menu-btn{display:flex;position:fixed;top:15px;left:15px;z-index:1001;width:44px;height:44px;border-radius:8px;background:var(--tra-navy);color:#fff;border:none;align-items:center;justify-content:center}
           .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999}
-          .sidebar-wrapper{transform:translateX(-100%);transition:transform .3s ease;width:280px}.sidebar-wrapper.sidebar-open{transform:translateX(0)}
+          .sidebar-wrapper{transform:translateX(-100%);transition:transform .3s ease;width:260px}.sidebar-wrapper.sidebar-open{transform:translateX(0)}
           .main-content{margin-left:0}.tt-header{padding:10px 15px 10px 60px;flex-wrap:wrap}.header-title{font-size:12px}.tt-page-header{padding:25px 15px 20px}.tiles-wrapper{grid-template-columns:repeat(2,1fr);padding:15px;margin-top:0}.card-custom{margin:15px}
         }
         @media (max-width:575px){ .tiles-wrapper{grid-template-columns:1fr;} .tile-box{min-height:110px;padding:18px;} .tile-stat{font-size:26px;} .tt-header{padding-left:15px;padding-right:15px;} .header-title{width:100%;} }

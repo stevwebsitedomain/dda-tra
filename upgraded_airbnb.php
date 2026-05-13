@@ -29,7 +29,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
 
     <style>
         :root {
-            --sidebar-width: 300px;
+            --sidebar-width: 260px;
             --tra-navy: #0b1e3b;
             --tra-blue-gradient: linear-gradient(135deg, #0e2245 0%, #1c3d7a 100%);
             --accent-gold: #c5a059;
@@ -253,7 +253,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
 
         @media (max-width: 991px) {
             .mobile-menu-btn { display: flex; }
-            .sidebar-wrapper { transform: translateX(-100%); transition: transform 0.3s ease; width: 280px; }
+            .sidebar-wrapper { transform: translateX(-100%); transition: transform 0.3s ease; width: 260px; }
             .sidebar-wrapper.sidebar-open { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .tt-header { padding: 10px 15px 10px 60px; gap: 10px; }
@@ -337,7 +337,7 @@ $user_name = $_SESSION['user_name'] ?? 'Admin';
         <div class="card-header-accent"><i class="fas fa-magnifying-glass mr-2"></i> Search</div>
         <div class="card-body">
             <p class="small text-muted mb-3">
-                Andika location au keyword (mfano: <strong>dar es salaam</strong>, <strong>Zanzibar</strong>) kisha bonyeza Search.
+                Enter a location or keyword (example: <strong>dar es salaam</strong>, <strong>Zanzibar</strong>), then click Search.
             </p>
             <div class="input-group">
                 <input type="text" id="search-query" class="form-control form-control-lg" placeholder="e.g. dar es salaam, Zanzibar">
